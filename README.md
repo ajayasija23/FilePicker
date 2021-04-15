@@ -1,6 +1,9 @@
 # FilePicker
 FilePicker is an Android Library that lets you choose any kind of file easyly. It handles the storage permission itself.
 
+# Minimum Sdk Version
+    Api Level 19 or Above
+
 # Installation
 
 Add the following code snippet in your project level gradle file
