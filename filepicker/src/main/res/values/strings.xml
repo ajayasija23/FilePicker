@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="read_write_permissions">This App Requires External Storage Permission</string>
+</resources>
