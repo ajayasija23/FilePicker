@@ -3,6 +3,8 @@ FilePicker is an Android Library that lets you choose any kind of file easyly. I
 
 # Minimum Sdk Version
     Api Level 19 or Above
+# Max Sdk Version
+    Api Level 30
 
 # Installation
 
