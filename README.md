@@ -25,7 +25,7 @@ Add the dependency in your app gradle
 
     dependencies {
            ...
-          implementation 'com.github.ajayasija23:FilePicker:1.0.0' //choose latest version
+          implementation 'com.github.ajayasija23:FilePicker:1.0.1' //choose latest version
       }
       
 # Usage
@@ -46,7 +46,6 @@ Add the dependency in your app gradle
             if (data.getData()!=null){
                 File file=FileUtils.getFile(this,data.getData());
                 selectedFiles.add(file.getName());
-                adapter.notifyDataSetChanged();
             }
             if (data.getClipData()!=null){
                 for(int i = 0; i < data.getClipData().getItemCount(); i++) {
@@ -54,7 +53,6 @@ Add the dependency in your app gradle
                     File file=FileUtils.getFile(this,uri);
                     selectedFiles.add(file.getName());
                 }
-                adapter.notifyDataSetChanged();
             }
         }
     }
