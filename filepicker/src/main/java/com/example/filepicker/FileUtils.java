@@ -598,11 +598,16 @@ public class FileUtils {
      * @return The intent for opening a file with Intent.createChooser()
      * @author paulburke
      */
-    public static Intent createGetContentIntent(String type) {
+    public static Intent createGetContentIntent(String type,boolean multiple) {
         // Implicitly allow the user to select a particular kind of data
         final Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         // The MIME data type filter
-        intent.setType(type);
+        if (type!=null){
+            intent.setType(type);
+        }
+        if (multiple){
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,true);
+        }
         // Only return URIs that can be opened with ContentResolver
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         return intent;

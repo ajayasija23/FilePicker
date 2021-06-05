@@ -20,6 +20,7 @@ public class FilePickerActivity extends AppCompatActivity implements EasyPermiss
     public static final int FILE_REQUEST_CODE = 123;
     private Intent intent;
     private String type;
+    private boolean multiple;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -27,6 +28,7 @@ public class FilePickerActivity extends AppCompatActivity implements EasyPermiss
         getSupportActionBar().hide();
         intent=getIntent();
         type=intent.getStringExtra("type");
+        multiple=intent.getBooleanExtra("multiple",false);
         checkPermissions();
     }
 
@@ -51,7 +53,7 @@ public class FilePickerActivity extends AppCompatActivity implements EasyPermiss
 
     @AfterPermissionGranted(RC_READ_WRITE)
     private void chooseFile() {
-        Intent chooserIntent= FileUtils.createGetContentIntent(type);
+        Intent chooserIntent= FileUtils.createGetContentIntent(type,multiple);
         startActivityForResult(chooserIntent,FILE_REQUEST_CODE);
     }
     @Override
