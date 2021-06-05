@@ -1,7 +1,6 @@
 # Preview
 
-![](https://github.com/ajayasija23/FilePicker/blob/master/preview/preview3.jpeg)
-![](https://github.com/ajayasija23/FilePicker/blob/master/preview/preview2.jpeg)
+![](https://github.com/ajayasija23/FilePicker/blob/master/preview/preview3.jpeg) ![](https://github.com/ajayasija23/FilePicker/blob/master/preview/preview2.jpeg)
 ![](https://github.com/ajayasija23/FilePicker/blob/master/preview/preview1.jpeg)
 
 
