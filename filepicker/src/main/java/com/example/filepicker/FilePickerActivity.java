@@ -25,7 +25,9 @@ public class FilePickerActivity extends AppCompatActivity implements EasyPermiss
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
+        if (getSupportActionBar()!=null){
+            getSupportActionBar().hide();
+        }
         intent=getIntent();
         type=intent.getStringExtra("type");
         multiple=intent.getBooleanExtra("multiple",false);
