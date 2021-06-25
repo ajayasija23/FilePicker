@@ -15,12 +15,20 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 public class FilePickerActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
 
-    private String[] perms = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+    private String[] perms = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+    };
+    private String [] cameraPermission={
+            Manifest.permission.CAMERA
+    };
     private static final int RC_READ_WRITE = 001;
-    public static final int FILE_REQUEST_CODE = 123;
+    private static final int RC_CAMERA = 002;
+    private int REQUEST_CODE;
     private Intent intent;
     private String type;
     private boolean multiple;
+    private boolean camera;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -29,9 +37,24 @@ public class FilePickerActivity extends AppCompatActivity implements EasyPermiss
             getSupportActionBar().hide();
         }
         intent=getIntent();
+        REQUEST_CODE=intent.getIntExtra("requestCode",101);
         type=intent.getStringExtra("type");
         multiple=intent.getBooleanExtra("multiple",false);
-        checkPermissions();
+        camera=intent.getBooleanExtra("camera",false);
+        if (camera){
+            checkCameraPermissions();
+        }else {
+            checkPermissions();
+        }
+    }
+
+    private void checkCameraPermissions() {
+        if (EasyPermissions.hasPermissions(this,cameraPermission)){
+            openCamera();
+        }else {
+            EasyPermissions.requestPermissions(this, getString(R.string.camera_permission),
+                    RC_CAMERA, cameraPermission);
+        }
     }
 
     private void checkPermissions() {
@@ -53,11 +76,21 @@ public class FilePickerActivity extends AppCompatActivity implements EasyPermiss
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
 
+
+    @AfterPermissionGranted(RC_CAMERA)
+    private void openCamera() {
+        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(cameraIntent, REQUEST_CODE);
+    }
+
     @AfterPermissionGranted(RC_READ_WRITE)
     private void chooseFile() {
         Intent chooserIntent= FileUtils.createGetContentIntent(type,multiple);
-        startActivityForResult(chooserIntent,FILE_REQUEST_CODE);
+        startActivityForResult(chooserIntent,REQUEST_CODE);
     }
+
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -67,7 +100,12 @@ public class FilePickerActivity extends AppCompatActivity implements EasyPermiss
 
     @Override
     public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
-        chooseFile();
+        if (requestCode==RC_READ_WRITE){
+            chooseFile();
+        }
+        else if (requestCode==RC_CAMERA){
+            openCamera();
+        }
     }
 
     @Override

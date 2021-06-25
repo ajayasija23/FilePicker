@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private ActivityMainBinding binding;
     private final int REQUEST_CODE=101;
+    public static final int CAMERA_REQUEST_CODE = 132;
     private boolean mutiple=false;
     private List<String> selectedFiles;
     private ItemAdapter adapter;
@@ -42,9 +44,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         Intent intent=new Intent(this, FilePickerActivity.class);
-        intent.putExtra("multiple",mutiple);
-        intent.putExtra("type","*/*");
-        startActivityForResult(intent,REQUEST_CODE);
+        intent.putExtra("camera",true);
+        intent.putExtra("requestCode",CAMERA_REQUEST_CODE);
+        startActivityForResult(intent,CAMERA_REQUEST_CODE);
     }
 
     @Override
@@ -64,6 +66,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 adapter.notifyDataSetChanged();
             }
+        }
+        if (requestCode==CAMERA_REQUEST_CODE&&resultCode==RESULT_OK&&data!=null){
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            binding.ivChooseFile.setImageBitmap(photo);
         }
     }
 }
