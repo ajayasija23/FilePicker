@@ -44,7 +44,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         Intent intent=new Intent(this, FilePickerActivity.class);
-        intent.putExtra("camera",true);
+        intent.putExtra("multiple",false);
+        intent.putExtra("type","image/*");
         intent.putExtra("requestCode",CAMERA_REQUEST_CODE);
         startActivityForResult(intent,CAMERA_REQUEST_CODE);
     }
