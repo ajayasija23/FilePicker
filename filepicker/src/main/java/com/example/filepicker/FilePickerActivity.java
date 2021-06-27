@@ -20,7 +20,9 @@ public class FilePickerActivity extends AppCompatActivity implements EasyPermiss
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
     };
     private String [] cameraPermission={
-            Manifest.permission.CAMERA
+            Manifest.permission.CAMERA,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
     private static final int RC_READ_WRITE = 001;
     private static final int RC_CAMERA = 002;
