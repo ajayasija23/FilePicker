@@ -87,8 +87,16 @@ public class FilePickerActivity extends AppCompatActivity implements EasyPermiss
 
     @AfterPermissionGranted(RC_READ_WRITE)
     private void chooseFile() {
-        Intent chooserIntent= FileUtils.createGetContentIntent(type,multiple);
-        startActivityForResult(chooserIntent,REQUEST_CODE);
+
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.R) {
+            // only for gingerbread and newer versions
+            Intent chooserIntent= FileUtils.createGetContentIntent(type,multiple);
+            startActivityForResult(chooserIntent,REQUEST_CODE);
+        }else {
+            Intent chooserIntent= FileUtils.createGetDocumentIntent(type,multiple);
+            startActivityForResult(chooserIntent,REQUEST_CODE);
+        }
+
     }
 
 

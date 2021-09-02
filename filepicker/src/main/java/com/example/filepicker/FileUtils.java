@@ -612,6 +612,20 @@ public class FileUtils {
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         return intent;
     }
+    public static Intent createGetDocumentIntent(String type,boolean multiple) {
+        // Implicitly allow the user to select a particular kind of data
+        final Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        // The MIME data type filter
+        if (type!=null){
+            intent.setType(type);
+        }
+        if (multiple){
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,true);
+        }
+        // Only return URIs that can be opened with ContentResolver
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        return intent;
+    }
     public static boolean isGoogleDriveUri(Uri uri) {
         return "com.google.android.apps.docs.storage".equals(uri.getAuthority()) || "com.google.android.apps.docs.storage.legacy".equals(uri.getAuthority());
     }
